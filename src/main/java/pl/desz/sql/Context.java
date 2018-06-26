@@ -46,6 +46,7 @@ class Context {
 
     public void setColumn(String column) {
         this.column = column;
+        setColumnMapper();
     }
 
     public void setTable(String table) {
@@ -67,7 +68,6 @@ class Context {
     }
 
     public List<String> search() {
-        setColumnMapper();
 
         List<String> result = tables.entrySet()
                 .stream()
@@ -78,6 +78,8 @@ class Context {
                 .flatMap(columnMapper)
                 .filter(whereFilter)
                 .collect(Collectors.toList());
+
+        clear();
 
         return result;
     }
