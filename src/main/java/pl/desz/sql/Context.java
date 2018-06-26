@@ -17,14 +17,15 @@ class Context {
     static {
         List<Row> list = new ArrayList<>();
         list.add(new Row("John", "Doe"));
-        list.add(new Row("Dan", "Xyz"));
-        list.add(new Row("Dominic", "Yzx"));
+        list.add(new Row("Jan", "Kowalski"));
+        list.add(new Row("Dominic", "Doom"));
 
         tables.put("people", list);
     }
 
     private String table;
     private String column;
+
     /**
      * Index of column to be shown in result.
      * Calculated in {@link #setColumnMapper()}
