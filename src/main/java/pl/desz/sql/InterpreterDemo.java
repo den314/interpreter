@@ -7,7 +7,7 @@ public class InterpreterDemo {
 
     public static void main(String[] args) {
 
-        Expression query = new Select("surname", new From("people"));
+        Expression query = new Select("whatever", new From("people"));
         Context ctx = new Context();
         List<String> result = query.interpret(ctx);
         System.out.println(result);

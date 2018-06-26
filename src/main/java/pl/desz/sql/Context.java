@@ -84,6 +84,7 @@ class Context {
 
     /**
      * Sets column mapper based on {@link #column} attribute.
+     * Note: If column is unknown, will remain to look for all columns.
      */
     private void setColumnMapper() {
         switch (column) {
