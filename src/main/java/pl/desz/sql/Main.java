@@ -34,13 +34,25 @@ class Context {
         tables.put("people", list);
     }
 
-    private String column;
+
     private String table;
+    private String column;
+    /**
+     * Index of column to be shown in result.
+     * Calculated in {@link #setColumnMapper()}
+     */
     private int colIndex = -1;
 
+    /**
+     * Default setup, used for clearing the context for next queries.
+     * See {@link Context#clear()}
+     */
     private static final Predicate<String> matchAnyString = s -> s.length() > 0;
     private static final Function<String, Stream<? extends String>> matchAllColumns = Stream::of;
-    private static Predicate<String> whereFilter = matchAnyString;
+    /**
+     * Varies based on setup in subclasses of {@link Expression}
+     */
+    private Predicate<String> whereFilter = matchAnyString;
     private Function<String, Stream<? extends String>> columnMapper = matchAllColumns;
 
     public void setColumn(String column) {
@@ -52,9 +64,13 @@ class Context {
     }
 
     public void setFilter(Predicate<String> filter) {
-        this.whereFilter = filter;
+        whereFilter = filter;
     }
 
+    /**
+     * Clears the context to defaults.
+     * No filters, match all columns.
+     */
     public void clear() {
         column = "";
         columnMapper = matchAllColumns;
@@ -62,7 +78,6 @@ class Context {
     }
 
     public List<String> search() {
-
         setColumnMapper();
 
         List<String> result = tables.entrySet()
@@ -78,6 +93,9 @@ class Context {
         return result;
     }
 
+    /**
+     * Sets column mapper based on {@link #column} attribute.
+     */
     private void setColumnMapper() {
         switch (column) {
             case "*":
